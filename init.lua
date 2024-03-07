@@ -532,6 +532,8 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        html = {},
+        biome = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -619,7 +621,8 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
+        html = { { 'prettier', 'prettierd' } },
       },
     },
   },
@@ -635,9 +638,9 @@ require('lazy').setup({
           -- Build Step is needed for regex support in snippets
           -- This step is not supported in many windows environments
           -- Remove the below condition to re-enable on windows
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
+          --if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+          --return
+          --end
           return 'make install_jsregexp'
         end)(),
       },
@@ -653,7 +656,7 @@ require('lazy').setup({
       --    you can use this plugin to help you. It even has snippets
       --    for various frameworks/libraries/etc. but you will have to
       --    set up the ones that are useful for you.
-      -- 'rafamadriz/friendly-snippets',
+      'rafamadriz/friendly-snippets',
     },
     config = function()
       -- See `:help cmp`
@@ -785,7 +788,7 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'javascript' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
