@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -521,7 +521,6 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -532,34 +531,20 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        html = {
-
-          settings = {
-            html = {
-              format = {
-                templating = true,
-                wrapLineLength = 120,
-                wrapAttributes = 'auto',
-              },
-              hover = {
-                documentation = true,
-                references = true,
-              },
-            },
-          },
-        },
-        biome = {},
+        html = { filetypes = { 'html', 'twig', 'hbs' } },
         clangd = {},
+        jdtls = {},
+        gopls = {},
         pyright = {},
         rust_analyzer = {},
-        ast_grep = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
 
         lua_ls = {
@@ -636,8 +621,8 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { { 'prettierd', 'prettier' } },
-        html = { { 'prettier', 'prettierd' } },
+        --javascript = { { 'prettierd', 'prettier' } },
+        --html = { { 'prettier', 'prettierd' } },
       },
     },
   },
@@ -673,10 +658,13 @@ require('lazy').setup({
       --    set up the ones that are useful for you.
       'rafamadriz/friendly-snippets',
     },
+
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      --require('luasnip.loaders.from_vscode').lazy_load()
+      require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
 
       cmp.setup {
@@ -700,7 +688,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -747,7 +735,14 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+
       vim.cmd.colorscheme 'tokyonight-night'
+
+      --Make background transparant
+      --vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      --vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+
+      transparent = vim.g.transparent_enabled
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
@@ -803,7 +798,7 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'javascript' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'javascript', 'go', 'java' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
@@ -822,7 +817,6 @@ require('lazy').setup({
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- put them in the right spots if you want.
-
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for kickstart
   --
   --  Here are some example plugins that I've included in the kickstart repository.
