@@ -40,6 +40,8 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
         'bash-debug-adapter',
+        'java-debug-adapter',
+        'java-test',
       },
     }
 
