@@ -533,23 +533,7 @@ require('lazy').setup({
       local servers = {
         html = { filetypes = { 'html', 'twig', 'hbs' } },
         clangd = {},
-        jdtls = {
-          cmd = {
-            'C:\\Program Files\\Java\\jdk-17.0.1\\bin\\java.exe',
-
-            '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-            '-Dosgi.bundles.defaultStartLevel=4',
-            '-Declipse.product=org.eclipse.jdt.ls.core.product',
-            '-Dlog.protocol=true',
-            '-Dlog.level=ALL',
-            '-Xmx1g',
-            '--add-modules=ALL-SYSTEM',
-            '--add-opens',
-            'java.base/java.util=ALL-UNNAMED',
-            '--add-opens',
-            'java.base/java.lang=ALL-UNNAMED',
-          },
-        },
+        jdtls = {},
         gopls = {},
         pyright = {},
         rust_analyzer = {},
