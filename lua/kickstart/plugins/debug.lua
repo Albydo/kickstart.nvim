@@ -17,6 +17,7 @@ return {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
+    'nvim-neotest/nvim-nio',
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
@@ -39,7 +40,6 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
-        'bash-debug-adapter',
       },
     }
 
