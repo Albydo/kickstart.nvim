@@ -14,6 +14,9 @@ return {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
 
+    -- Required dependency for nvim-dap-ui
+    'nvim-neotest/nvim-nio',
+
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
@@ -40,6 +43,9 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'bash-debug-adapter',
+        'java-debug-adapter',
+        'java-test',
       },
     }
 
